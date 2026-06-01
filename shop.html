@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="روز بغداد — اكتشف المجموعة الكاملة من العطور والبخور الفاخرة." />
+  <title>روز بغداد | المجموعة الكاملة</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700&family=Tajawal:wght@300;400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/shared.css" />
+  <style>
+    /* ─── SHOP PAGE HEADER ─── */
+    .shop-header {
+      padding-top: 120px;
+      padding-bottom: 56px;
+      padding-inline: 48px;
+      background: linear-gradient(160deg, #3d3627 0%, #524834 60%, #665a41 100%);
+      position: relative; overflow: hidden;
+    }
+    .shop-header::after {
+      content: '';
+      position: absolute; inset: 0;
+      background-image: url('assets/images/hero_bg.png');
+      background-size: cover; background-position: center;
+      opacity: 0.12;
+    }
+    .shop-header-inner {
+      max-width: 1280px; margin: 0 auto;
+      position: relative; z-index: 1;
+    }
+    .shop-breadcrumb {
+      display: flex; align-items: center; gap: 8px;
+      font-size: 0.8rem; color: rgba(255,255,255,0.5);
+      font-family: 'Cairo', sans-serif; margin-bottom: 20px;
+    }
+    .shop-breadcrumb a { color: var(--gold); text-decoration: none; }
+    .shop-breadcrumb a:hover { text-decoration: underline; }
+    .shop-header h1 {
+      font-family: 'AcuminVariableConcept', 'Tajawal', sans-serif;
+      font-size: clamp(2.5rem, 5vw, 4rem); font-weight: 300;
+      color: #fff; line-height: 1.1; margin-bottom: 12px;
+    }
+    .shop-header h1 em { color: var(--gold); font-style: italic; }
+    .shop-header p { color: rgba(255,255,255,0.6); font-family: 'Cairo', sans-serif; }
+
+    /* ─── SHOP BODY ─── */
+    .shop-body {
+      max-width: 1280px; margin: 0 auto;
+      padding: 56px 48px;
+    }
+    @media (max-width: 768px) { .shop-body { padding: 40px 20px; } .shop-header { padding-inline: 20px; } }
+
+    /* ─── SORT BAR ─── */
+    .shop-bar {
+      display: flex; align-items: center; justify-content: space-between;
+      flex-wrap: wrap; gap: 16px; margin-bottom: 36px;
+    }
+    .result-count { font-size: 0.85rem; color: var(--text-muted); font-family: 'Cairo', sans-serif; }
+    .sort-select {
+      border: 1px solid rgba(179,157,114,0.35); background: transparent;
+      color: var(--dark); padding: 8px 16px;
+      font-family: 'Tajawal', sans-serif; font-size: 0.88rem;
+      cursor: pointer; outline: none; appearance: none;
+      padding-inline-end: 32px;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='none' stroke='%23b39d72' stroke-width='2' viewBox='0 0 24 24'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: calc(100% - 10px) center;
+    }
+    [dir="rtl"] .sort-select { background-position: 10px center; }
+
+    /* ─── EMPTY STATE ─── */
+    .empty-state {
+      text-align: center; padding: 80px 0;
+      color: var(--text-muted); font-family: 'Cairo', sans-serif;
+    }
+    .empty-state svg { color: rgba(179,157,114,0.3); margin: 0 auto 20px; display: block; }
+    .empty-state h3 { font-size: 1.2rem; margin-bottom: 8px; color: var(--dark); }
+
+    /* ─── LOAD MORE ─── */
+    .load-more-wrap { text-align: center; margin-top: 56px; }
+  </style>
+</head>
+<body>
+
+<!-- ══════════════════════════════ NAVBAR ══════════════════════════════ -->
+<nav id="navbar" class="scrolled">
+  <div class="navbar-inner">
+    <a href="index.html" class="nav-logo">
+      <img src="assets/images/logo_transparent.png" alt="Rose Baghdad" class="nav-logo-img" />
+      <div class="nav-logo-text">
+        <div class="nav-logo-name">ROSE BAGHDAD</div>
+        <div class="nav-logo-sub" data-i18n="brand_sub">للعطور والبخور</div>
+      </div>
+    </a>
+    <ul class="nav-links">
+      <li><a href="index.html" data-i18n="nav_home">الرئيسية</a></li>
+      <li><a href="shop.html" style="color:var(--gold);" data-i18n="nav_collection">المجموعة</a></li>
+      <li><a href="index.html#about" data-i18n="nav_story">قصتنا</a></li>
+      <li><a href="index.html#newsletter" data-i18n="nav_contact">تواصل معنا</a></li>
+    </ul>
+    <div class="nav-actions">
+      <button class="lang-switcher-btn">EN</button>
+      <div class="cart-wrap">
+        <button id="cart-btn" class="nav-icon-btn" aria-label="Cart">
+          <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
+        </button>
+        <span id="cart-count" style="display:none;">0</span>
+      </div>
+      <button class="hamburger-btn" id="menu-btn" aria-label="Menu">
+        <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+      </button>
+    </div>
+  </div>
+</nav>
+
+<div id="mobile-menu">
+  <button class="menu-close-btn" id="menu-close"><svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+  <ul class="mobile-nav-links">
+    <li><a href="index.html" data-i18n="nav_home">الرئيسية</a></li>
+    <li><a href="shop.html" style="color:var(--gold);" data-i18n="nav_collection">المجموعة</a></li>
+    <li><a href="index.html#about" data-i18n="nav_story">قصتنا</a></li>
+    <li><a href="index.html#newsletter" data-i18n="nav_contact">تواصل معنا</a></li>
+  </ul>
+  <div class="mobile-menu-footer">
+    <div><div style="color:var(--gold);font-size:0.85rem;">تأسست ٢٠٢٢</div></div>
+    <button class="lang-switcher-btn">EN</button>
+  </div>
+</div>
+<div id="menu-backdrop" class="hidden"></div>
+
+
+<!-- ══════════════════════════════ SHOP HEADER ══════════════════════════════ -->
+<header class="shop-header">
+  <div class="shop-header-inner">
+    <div class="shop-breadcrumb">
+      <a href="index.html" data-i18n="nav_home">الرئيسية</a>
+      <span>›</span>
+      <span data-i18n="nav_collection">المجموعة</span>
+    </div>
+    <h1 data-i18n="shop_h">المجموعة <em>الكاملة</em></h1>
+    <p>اكتشف كل عطورنا وبخورنا الفاخرة من قلب بغداد</p>
+  </div>
+</header>
+
+
+<!-- ══════════════════════════════ SHOP BODY ══════════════════════════════ -->
+<main class="shop-body">
+
+  <!-- Filter Pills -->
+  <div class="filter-pills" id="shop-filter-pills">
+    <button class="filter-pill active" data-filter="all" data-i18n="filter_all">الكل</button>
+    <button class="filter-pill" data-filter="perfume" data-i18n="filter_perfume">العطور</button>
+    <button class="filter-pill" data-filter="incense" data-i18n="filter_incense">البخور</button>
+    <button class="filter-pill" data-filter="sets" data-i18n="filter_sets">مجموعات الهدايا</button>
+  </div>
+
+  <!-- Sort Bar -->
+  <div class="shop-bar">
+    <span class="result-count" id="result-count">عرض 8 منتج</span>
+    <select class="sort-select" id="sort-select" aria-label="Sort">
+      <option value="default">الترتيب الافتراضي</option>
+      <option value="price-asc">السعر: من الأقل</option>
+      <option value="price-desc">السعر: من الأعلى</option>
+      <option value="rating">الأعلى تقييماً</option>
+    </select>
+  </div>
+
+  <!-- Products Grid -->
+  <div class="products-grid" id="shop-products-grid"></div>
+
+  <!-- Empty State -->
+  <div class="empty-state" id="empty-state" style="display:none;">
+    <svg width="64" height="64" fill="none" stroke="currentColor" stroke-width="1" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+    <h3>لا توجد نتائج</h3>
+    <p>لا توجد منتجات في هذه الفئة حالياً. جرّب تصفية مختلفة.</p>
+  </div>
+
+</main>
+
+
+<!-- ══════════════════════════════ FOOTER ══════════════════════════════ -->
+<footer class="site-footer">
+  <div class="footer-grid">
+    <div>
+      <img src="assets/images/logo_transparent.png" alt="Rose Baghdad" class="footer-logo-img" />
+      <p class="footer-tagline">روز بغداد — ملاذ العطور الشرقية. تأسست بكل حب في بغداد، 2022.</p>
+      <div class="footer-socials">
+        <a href="#" class="social-btn"><svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg></a>
+        <a href="#" class="social-btn"><svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg></a>
+      </div>
+    </div>
+    <div>
+      <div class="footer-heading">روابط سريعة</div>
+      <ul class="footer-links">
+        <li><a href="index.html" data-i18n="nav_home">الرئيسية</a></li>
+        <li><a href="shop.html" data-i18n="nav_collection">المجموعة</a></li>
+        <li><a href="index.html#about" data-i18n="nav_story">قصتنا</a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="footer-heading">تواصل معنا</div>
+      <ul class="footer-links">
+        <li><a href="#">بغداد، العراق</a></li>
+        <li><a href="mailto:info@rosebaghdad.iq" dir="ltr">info@rosebaghdad.iq</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span class="footer-copy">© 2026 روز بغداد. جميع الحقوق محفوظة.</span>
+  </div>
+</footer>
+
+
+<script src="js/app.js"></script>
+<script>
+let currentFilter = 'all';
+let currentSort   = 'default';
+
+function getSortedFiltered() {
+  let items = currentFilter === 'all'
+    ? [...RB_PRODUCTS]
+    : RB_PRODUCTS.filter(p => p.category === currentFilter);
+
+  switch(currentSort) {
+    case 'price-asc':  items.sort((a,b) => a.price - b.price); break;
+    case 'price-desc': items.sort((a,b) => b.price - a.price); break;
+    case 'rating':     items.sort((a,b) => b.rating - a.rating || b.reviews - a.reviews); break;
+  }
+  return items;
+}
+
+function renderShopGrid() {
+  const lang = RBLang.current;
+  const grid = document.getElementById('shop-products-grid');
+  const empty = document.getElementById('empty-state');
+  const countEl = document.getElementById('result-count');
+
+  const items = getSortedFiltered();
+  grid.innerHTML = '';
+
+  if (items.length === 0) {
+    grid.style.display = 'none';
+    empty.style.display = 'block';
+    countEl.textContent = lang === 'ar' ? 'لا توجد منتجات' : 'No products';
+    return;
+  }
+
+  grid.style.display = 'grid';
+  empty.style.display = 'none';
+  countEl.textContent = lang === 'ar'
+    ? `عرض ${items.length} منتج`
+    : `Showing ${items.length} products`;
+
+  items.forEach((product, i) => {
+    const wrapper = document.createElement('div');
+    wrapper.innerHTML = RBUtils.buildCard(product, lang);
+    const el = wrapper.firstElementChild;
+    el.style.animationDelay = `${i * 0.06}s`;
+    el.addEventListener('click', () => {
+      window.location.href = `product.html?id=${product.id}`;
+    });
+    grid.appendChild(el);
+  });
+}
+
+// Filter pills
+document.getElementById('shop-filter-pills').addEventListener('click', e => {
+  const pill = e.target.closest('.filter-pill');
+  if (!pill) return;
+  document.querySelectorAll('#shop-filter-pills .filter-pill').forEach(p => p.classList.remove('active'));
+  pill.classList.add('active');
+  currentFilter = pill.dataset.filter;
+  renderShopGrid();
+});
+
+// Sort
+document.getElementById('sort-select').addEventListener('change', e => {
+  currentSort = e.target.value;
+  renderShopGrid();
+});
+
+// Language change
+document.addEventListener('rb:langchange', () => {
+  renderShopGrid();
+  const t = RBLang.t;
+  document.title = t.shop_title;
+  const pills = document.querySelectorAll('#shop-filter-pills .filter-pill');
+  if (pills[0]) { pills[0].textContent = t.filter_all; pills[1].textContent = t.filter_perfume; pills[2].textContent = t.filter_incense; pills[3].textContent = t.filter_sets; }
+});
+
+renderShopGrid();
+</script>
+</body>
+</html>
