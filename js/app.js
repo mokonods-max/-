@@ -1,442 +1,360 @@
 /**
- * Rose Baghdad – Shared Application Core (V2.0)
- * Handles: Product data, Cart state, Language state, Shared utilities
+ * Rose Baghdad V2.0 — Application Core
+ * Shared: Product data, Cart state with drawer, Language system, Utilities
  */
 
 // ═══════════════════════════════════════════════════════
-// PRODUCT DATA STORE
+// PRODUCT DATA
 // ═══════════════════════════════════════════════════════
-const RB_PRODUCTS = [
+const PRODUCTS = [
   {
-    id: 1,
-    category: 'perfume',
-    badge: 'bestseller',
-    badgeAr: 'الأكثر مبيعاً',
-    badgeEn: 'Bestseller',
-    nameAr: 'عود ملكي',
-    nameEn: 'Oud Royal',
+    id: 1, category: 'perfume', badge: 'bestseller',
+    nameAr: 'عود ملكي', nameEn: 'Oud Royal',
     descAr: 'عود فاخر ممزوج بنفحات الزعفران والعنبر — يليق بالملوك',
-    descEn: 'An imperial oud with notes of saffron and amber — fit for royalty',
-    longDescAr: 'عود ملكي هو تجربة عطرية استثنائية تجمع بين أجود أنواع عود الهندي المعتق ونفحات الزعفران الكشميري والعنبر السائل. مدته تتجاوز 12 ساعة على الجلد مع أثر يملأ الغرفة. معبأ في زجاجة كريستالية بغطاء ذهبي.',
-    longDescEn: 'Oud Royal is an exceptional fragrance experience combining the finest aged Hindi oud with Kashmiri saffron and liquid amber. Long-lasting 12+ hours on skin, room-filling sillage. Presented in a crystal bottle with a gold cap.',
-    price: 85000,
-    originalPrice: 100000,
-    rating: 5,
-    reviews: 48,
-    image: 'assets/images/perfume_1.png',
-    tags: ['عود', 'زعفران', 'عنبر']
+    descEn: 'An imperial oud blended with saffron and amber — fit for royalty',
+    longAr: 'عود ملكي هو تجربة عطرية استثنائية تجمع بين أجود أنواع عود الهندي المعتق ونفحات الزعفران الكشميري والعنبر السائل. مدته تتجاوز ١٢ ساعة على الجلد مع أثر يملأ الغرفة. معبأ في زجاجة كريستالية بغطاء ذهبي مصنوع يدوياً.',
+    longEn: 'Oud Royal is an exceptional fragrance experience combining the finest aged Hindi oud with Kashmiri saffron and liquid amber. Long-lasting 12+ hours on skin with room-filling sillage. Presented in a crystal bottle with a handcrafted gold cap.',
+    price: 85000, originalPrice: 100000, rating: 5, reviews: 48,
+    image: 'assets/images/perfume_1.png', tags: ['عود', 'زعفران', 'عنبر']
   },
   {
-    id: 2,
-    category: 'incense',
-    badge: 'new',
-    badgeAr: 'جديد',
-    badgeEn: 'New',
-    nameAr: 'بغداد نوار',
-    nameEn: 'Baghdad Noir',
+    id: 2, category: 'incense', badge: 'new',
+    nameAr: 'بغداد نوار', nameEn: 'Baghdad Noir',
     descAr: 'بخور داكن مدخن معتق ببتلات الورد ومسك الغزال',
-    descEn: 'Dark, smoky Bakhoor infused with rose petals and musk',
-    longDescAr: 'بغداد نوار هو بخور استثنائي يمزج بين العمق الداكن للعود المدخن وخفة بتلات الورد الطازجة. يُضرم على فحم صغير ليطلق دخانه العطري الذي يبقى عالقاً في الهواء لساعات. تجربة حسية لا تنسى.',
-    longDescEn: 'Baghdad Noir is an exceptional incense that blends the dark depth of smoky oud with the lightness of fresh rose petals. Burn over charcoal to release aromatic smoke that lingers for hours.',
-    price: 65000,
-    originalPrice: null,
-    rating: 4,
-    reviews: 32,
-    image: 'assets/images/perfume_2.png',
-    tags: ['بخور', 'ورد', 'مسك']
+    descEn: 'Dark smoky Bakhoor aged with rose petals and deer musk',
+    longAr: 'بغداد نوار هو بخور استثنائي يمزج بين العمق الداكن للعود المدخن وخفة بتلات الورد الطازجة. يُضرم على فحم ليطلق دخانه العطري الذي يبقى عالقاً في الهواء لساعات.',
+    longEn: 'Baghdad Noir is an exceptional incense blending dark smoky oud depth with fresh rose petal lightness. Burn over charcoal to release aromatic smoke that lingers for hours.',
+    price: 65000, originalPrice: null, rating: 4, reviews: 32,
+    image: 'assets/images/perfume_2.png', tags: ['بخور', 'ورد', 'مسك']
   },
   {
-    id: 3,
-    category: 'sets',
-    badge: null,
-    badgeAr: null,
-    badgeEn: null,
-    nameAr: 'مجموعة حديقة الورد',
-    nameEn: 'Rose Garden Set',
+    id: 3, category: 'sets', badge: null,
+    nameAr: 'مجموعة حديقة الورد', nameEn: 'Rose Garden Set',
     descAr: 'عطرين مميزين — عود الورد ومسك الياسمين في صندوق فاخر',
-    descEn: 'Two signature scents — Rose Oud & Jasmine Musk, elegantly boxed',
-    longDescAr: 'مجموعة حديقة الورد هي الهدية المثالية للمناسبات الخاصة. تضم عطرين: "عود الورد" ذو الأريج الزهري الفاخر، و"مسك الياسمين" الناعم والرومانسي. تُقدَّم في صندوق هدايا فاخر مزيّن بالذهب.',
-    longDescEn: 'The Rose Garden Set is the perfect gift for special occasions, containing two signature scents in a luxurious gold-decorated gift box.',
-    price: 125000,
-    originalPrice: 150000,
-    rating: 5,
-    reviews: 76,
-    image: 'assets/images/perfume_3.png',
-    tags: ['مجموعة', 'هدية', 'ورد']
+    descEn: 'Two signature scents — Rose Oud & Jasmine Musk in a luxury box',
+    longAr: 'مجموعة حديقة الورد هي الهدية المثالية. تضم عطرين: "عود الورد" و"مسك الياسمين"، في صندوق هدايا فاخر مزيّن بالذهب.',
+    longEn: 'The Rose Garden Set is the perfect gift, featuring two signature scents in a luxurious gold-decorated gift box.',
+    price: 125000, originalPrice: 150000, rating: 5, reviews: 76,
+    image: 'assets/images/perfume_3.png', tags: ['مجموعة', 'هدية', 'ورد']
   },
   {
-    id: 4,
-    category: 'incense',
-    badge: 'limited',
-    badgeAr: 'إصدار محدود',
-    badgeEn: 'Limited',
-    nameAr: 'بخور مقدس',
-    nameEn: 'Sacred Bakhoor',
+    id: 4, category: 'incense', badge: 'limited',
+    nameAr: 'بخور مقدس', nameEn: 'Sacred Bakhoor',
     descAr: 'رقائق عود هندي فاخرة مع خشب الصندل المعتق وراتنج العنبر',
-    descEn: 'Premium Hindi Oud chips with aged sandalwood and amber resin',
-    longDescAr: 'البخور المقدس هو مزيج نادر من رقائق عود هندي فاخرة مع خشب الصندل المعتق وراتنج العنبر الطبيعي. يعطي رائحة دافئة وعميقة تملأ المكان بالسكينة والروحانية. يأتي في علبة خشبية جميلة.',
-    longDescEn: 'Sacred Bakhoor is a rare blend of premium Hindi oud chips with aged sandalwood and natural amber resin, giving a warm, deep scent that fills the space with peace and spirituality.',
-    price: 45000,
-    originalPrice: null,
-    rating: 5,
-    reviews: 29,
-    image: 'assets/images/perfume_4.png',
-    tags: ['بخور', 'عود', 'صندل']
+    descEn: 'Premium Hindi oud chips with aged sandalwood and amber resin',
+    longAr: 'البخور المقدس مزيج نادر من رقائق عود هندي فاخرة مع خشب الصندل المعتق وراتنج العنبر الطبيعي. يأتي في علبة خشبية جميلة.',
+    longEn: 'Sacred Bakhoor is a rare blend of premium Hindi oud chips with aged sandalwood and natural amber resin, in a beautiful wooden box.',
+    price: 45000, originalPrice: null, rating: 5, reviews: 29,
+    image: 'assets/images/perfume_4.png', tags: ['بخور', 'عود', 'صندل']
   },
   {
-    id: 5,
-    category: 'perfume',
-    badge: 'new',
-    badgeAr: 'جديد',
-    badgeEn: 'New',
-    nameAr: 'نسمة بغداد',
-    nameEn: 'Baghdad Breeze',
+    id: 5, category: 'perfume', badge: 'new',
+    nameAr: 'نسمة بغداد', nameEn: 'Baghdad Breeze',
     descAr: 'عطر خفيف ومنعش بنفحات الحمضيات والمسك الأبيض',
-    descEn: 'A light, refreshing scent with citrus notes and white musk',
-    longDescAr: 'نسمة بغداد عطر نهاري مثالي يجمع بين انتعاش الحمضيات الطازجة ونعومة المسك الأبيض. مناسب لجميع المناسبات ويرافقك طوال اليوم.',
-    longDescEn: 'Baghdad Breeze is a perfect daytime fragrance combining fresh citrus and soft white musk. Suitable for all occasions.',
-    price: 55000,
-    originalPrice: null,
-    rating: 4,
-    reviews: 21,
-    image: 'assets/images/perfume_1.png',
-    tags: ['خفيف', 'مسك', 'حمضيات']
+    descEn: 'A light, refreshing scent with citrus and white musk notes',
+    longAr: 'نسمة بغداد عطر نهاري مثالي يجمع بين انتعاش الحمضيات الطازجة ونعومة المسك الأبيض. مناسب لجميع المناسبات.',
+    longEn: 'Baghdad Breeze is a perfect daytime fragrance combining fresh citrus and soft white musk.',
+    price: 55000, originalPrice: null, rating: 4, reviews: 21,
+    image: 'assets/images/perfume_1.png', tags: ['خفيف', 'مسك', 'حمضيات']
   },
   {
-    id: 6,
-    category: 'sets',
-    badge: 'bestseller',
-    badgeAr: 'الأكثر مبيعاً',
-    badgeEn: 'Bestseller',
-    nameAr: 'مجموعة الليالي العربية',
-    nameEn: 'Arabian Nights Set',
+    id: 6, category: 'sets', badge: 'bestseller',
+    nameAr: 'مجموعة الليالي العربية', nameEn: 'Arabian Nights Set',
     descAr: 'ثلاثة عطور ليلية فاخرة في صندوق هدايا استثنائي',
     descEn: 'Three luxurious evening fragrances in an exceptional gift box',
-    longDescAr: 'مجموعة الليالي العربية تضم ثلاثة من أفضل عطورنا الليلية في صندوق هدايا استثنائي منقوش بالذهب. الهدية الأجمل لأحبائك.',
-    longDescEn: 'The Arabian Nights Set features three of our finest evening fragrances in an exceptional gold-engraved gift box.',
-    price: 175000,
-    originalPrice: 210000,
-    rating: 5,
-    reviews: 54,
-    image: 'assets/images/perfume_3.png',
-    tags: ['مجموعة', 'هدية', 'ليلي']
+    longAr: 'مجموعة الليالي العربية تضم ثلاثة من أفضل عطورنا الليلية في صندوق هدايا استثنائي منقوش بالذهب.',
+    longEn: 'The Arabian Nights Set features three of our finest evening fragrances in an exceptional gold-engraved gift box.',
+    price: 175000, originalPrice: 210000, rating: 5, reviews: 54,
+    image: 'assets/images/perfume_3.png', tags: ['مجموعة', 'هدية', 'ليلي']
   },
   {
-    id: 7,
-    category: 'incense',
-    badge: null,
-    badgeAr: null,
-    badgeEn: null,
-    nameAr: 'دخان الجنة',
-    nameEn: 'Heaven Smoke',
+    id: 7, category: 'incense', badge: null,
+    nameAr: 'دخان الجنة', nameEn: 'Heaven Smoke',
     descAr: 'بخور فريد من الكمادا العربية والمسك الأبيض النقي',
     descEn: 'Unique incense of Arabic Kumada and pure white musk',
-    longDescAr: 'دخان الجنة مزيج فريد من الكمادا العربية الأصيلة مع أنقى أنواع المسك الأبيض. يمنح منزلك رائحة راقية وهادئة.',
-    longDescEn: 'Heaven Smoke is a unique blend of authentic Arabic Kumada with the purest white musk, giving your home a refined and calming scent.',
-    price: 38000,
-    originalPrice: null,
-    rating: 4,
-    reviews: 17,
-    image: 'assets/images/perfume_4.png',
-    tags: ['بخور', 'مسك', 'كمادا']
+    longAr: 'دخان الجنة مزيج فريد من الكمادا العربية الأصيلة مع أنقى أنواع المسك الأبيض.',
+    longEn: 'Heaven Smoke is a unique blend of authentic Arabic Kumada with the purest white musk.',
+    price: 38000, originalPrice: null, rating: 4, reviews: 17,
+    image: 'assets/images/perfume_4.png', tags: ['بخور', 'مسك', 'كمادا']
   },
   {
-    id: 8,
-    category: 'perfume',
-    badge: 'limited',
-    badgeAr: 'إصدار محدود',
-    badgeEn: 'Limited',
-    nameAr: 'ورد الطائف الذهبي',
-    nameEn: 'Golden Taif Rose',
+    id: 8, category: 'perfume', badge: 'limited',
+    nameAr: 'ورد الطائف الذهبي', nameEn: 'Golden Taif Rose',
     descAr: 'جوهرة العطور — روح وردة الطائف في قارورة ذهبية',
     descEn: 'The crown jewel — the soul of Taif rose in a golden vial',
-    longDescAr: 'ورد الطائف الذهبي هو أثمن عطورنا. يستخلص من آلاف وردات الطائف الأصيلة ليمنحك رائحة ملكية خالصة لا مثيل لها. قارورة فريدة مطلية بالذهب.',
-    longDescEn: 'Golden Taif Rose is our most precious fragrance, distilled from thousands of authentic Taif roses, presented in a unique gold-plated vial.',
-    price: 150000,
-    originalPrice: null,
-    rating: 5,
-    reviews: 38,
-    image: 'assets/images/perfume_2.png',
-    tags: ['ورد', 'طائف', 'فاخر']
+    longAr: 'ورد الطائف الذهبي هو أثمن عطورنا. يستخلص من آلاف وردات الطائف ليمنحك رائحة ملكية خالصة.',
+    longEn: 'Golden Taif Rose is our most precious fragrance, distilled from thousands of authentic Taif roses.',
+    price: 150000, originalPrice: null, rating: 5, reviews: 38,
+    image: 'assets/images/perfume_2.png', tags: ['ورد', 'طائف', 'فاخر']
   }
 ];
 
 // ═══════════════════════════════════════════════════════
 // TRANSLATIONS
 // ═══════════════════════════════════════════════════════
-const RB_TRANSLATIONS = {
+const T = {
   ar: {
-    dir: 'rtl',
-    lang: 'ar',
-    nav_home: 'الرئيسية',
-    nav_collection: 'المجموعة',
-    nav_story: 'قصتنا',
-    nav_contact: 'تواصل معنا',
-    hero_tag: '✦ أصالة بغداد، تأسست ٢٠٢٢ ✦',
-    hero_h1_1: 'حيث يغدو',
-    hero_h1_2: 'العطر',
-    hero_h1_3: 'فناً أصيلاً',
+    dir: 'rtl', lang: 'ar',
+    nav_home: 'الرئيسية', nav_collection: 'المجموعة', nav_story: 'قصتنا', nav_contact: 'تواصل معنا',
+    filter_all: 'الكل', filter_perfume: 'العطور', filter_incense: 'البخور', filter_sets: 'مجموعات الهدايا',
+    add_cart: 'أضف للسلة', quick_add: 'إضافة سريعة', view_details: 'عرض التفاصيل',
+    cart_title: 'سلة التسوق', cart_empty: 'سلتك فارغة', cart_checkout: 'إتمام الشراء',
+    cart_total: 'المجموع', cart_remove: 'إزالة', cart_added: 'تمت الإضافة',
+    currency: 'د.ع', pdp_back: 'العودة للمتجر', pdp_reviews: 'تقييم',
+    hero_over: '✦ تأسست في بغداد، ٢٠٢٢ ✦',
+    hero_h1: 'حيث يغدو العطر فناً أصيلاً',
     hero_sub: 'عطور فاخرة وبخور أصيل تُصنع بشغف من قلب بغداد للذواقة',
-    hero_cta: 'اكتشف المجموعة',
-    hero_story: 'قصتنا',
-    filter_all: 'الكل',
-    filter_perfume: 'العطور',
-    filter_incense: 'البخور',
-    filter_sets: 'مجموعات الهدايا',
-    section_collection_tag: '✦ التشكيلة ✦',
-    section_collection_h: 'اكتشف عطورنا المميزة',
+    hero_cta: 'اكتشف المجموعة', hero_story: 'قصتنا',
+    col_over: '✦ التشكيلة ✦', col_title: 'اكتشف عطورنا المميزة',
     view_all: 'اكتشف التشكيلة الكاملة',
-    view_details: 'عرض التفاصيل',
-    quick_add: 'أضف للسلة',
-    add_to_cart: 'أضف للسلة',
-    cart_added: 'تم الإضافة للسلة',
-    brand_sub: 'للعطور والبخور',
-    shop_title: 'متجر روز بغداد | المجموعة الكاملة',
-    shop_h: 'المجموعة الكاملة',
-    pdp_back: '→ العودة للمتجر',
-    pdp_add_cart: 'أضف للسلة',
-    pdp_reviews: 'تقييمات',
-    currency: 'د.ع',
+    shop_title: 'المجموعة الكاملة',
   },
   en: {
-    dir: 'ltr',
-    lang: 'en',
-    nav_home: 'Home',
-    nav_collection: 'Collection',
-    nav_story: 'Our Story',
-    nav_contact: 'Contact',
-    hero_tag: '✦ Est. Baghdad, 2022 ✦',
-    hero_h1_1: 'WHERE',
-    hero_h1_2: 'SCENT',
-    hero_h1_3: 'BECOMES ART',
+    dir: 'ltr', lang: 'en',
+    nav_home: 'Home', nav_collection: 'Collection', nav_story: 'Our Story', nav_contact: 'Contact',
+    filter_all: 'All', filter_perfume: 'Perfumes', filter_incense: 'Incense', filter_sets: 'Gift Sets',
+    add_cart: 'Add to Cart', quick_add: 'Quick Add', view_details: 'View Details',
+    cart_title: 'Shopping Cart', cart_empty: 'Your cart is empty', cart_checkout: 'Checkout',
+    cart_total: 'Total', cart_remove: 'Remove', cart_added: 'Added to cart',
+    currency: 'IQD', pdp_back: 'Back to Shop', pdp_reviews: 'reviews',
+    hero_over: '✦ Est. Baghdad, 2022 ✦',
+    hero_h1: 'Where Scent Becomes Art',
     hero_sub: 'Handcrafted luxury perfumes & premium incense from the heart of Baghdad',
-    hero_cta: 'Discover Collection',
-    hero_story: 'Our Story',
-    filter_all: 'All',
-    filter_perfume: 'Perfumes',
-    filter_incense: 'Incense',
-    filter_sets: 'Gift Sets',
-    section_collection_tag: '✦ The Collection ✦',
-    section_collection_h: 'Discover Our Signature Scents',
+    hero_cta: 'Discover Collection', hero_story: 'Our Story',
+    col_over: '✦ The Collection ✦', col_title: 'Discover Our Signature Scents',
     view_all: 'View Full Collection',
-    view_details: 'View Details',
-    quick_add: 'Quick Add',
-    add_to_cart: 'Add to Cart',
-    cart_added: 'Added to cart',
-    brand_sub: 'For Perfumes & Incense',
-    shop_title: 'Rose Baghdad | Full Collection',
-    shop_h: 'Full Collection',
-    pdp_back: '← Back to Shop',
-    pdp_add_cart: 'Add to Cart',
-    pdp_reviews: 'Reviews',
-    currency: 'IQD',
+    shop_title: 'Full Collection',
   }
 };
 
 // ═══════════════════════════════════════════════════════
-// CART STATE MANAGER
+// LANGUAGE
 // ═══════════════════════════════════════════════════════
-const RBCart = {
-  items: JSON.parse(localStorage.getItem('rb_cart') || '[]'),
-
-  save() {
-    localStorage.setItem('rb_cart', JSON.stringify(this.items));
-  },
-
-  add(productId) {
-    const existing = this.items.find(i => i.id === productId);
-    if (existing) {
-      existing.qty += 1;
-    } else {
-      const product = RB_PRODUCTS.find(p => p.id === productId);
-      if (product) this.items.push({ id: productId, qty: 1, price: product.price });
-    }
-    this.save();
-    this.updateBadge();
-    return this.items.reduce((s, i) => s + i.qty, 0);
-  },
-
-  getCount() {
-    return this.items.reduce((s, i) => s + i.qty, 0);
-  },
-
-  updateBadge() {
-    const count = this.getCount();
-    document.querySelectorAll('#cart-count').forEach(el => {
-      el.textContent = count;
-      el.style.display = count > 0 ? 'flex' : 'none';
-    });
-  }
-};
-
-// ═══════════════════════════════════════════════════════
-// LANGUAGE STATE MANAGER
-// ═══════════════════════════════════════════════════════
-const RBLang = {
+const Lang = {
   current: localStorage.getItem('rb_lang') || 'ar',
-
-  get t() {
-    return RB_TRANSLATIONS[this.current];
-  },
-
+  get t() { return T[this.current]; },
   toggle() {
     this.current = this.current === 'ar' ? 'en' : 'ar';
     localStorage.setItem('rb_lang', this.current);
     this.apply();
   },
-
   apply() {
     const t = this.t;
-    const html = document.documentElement;
-    html.setAttribute('dir', t.dir);
-    html.setAttribute('lang', t.lang);
-
-    // Update all [data-i18n] elements
+    document.documentElement.setAttribute('dir', t.dir);
+    document.documentElement.setAttribute('lang', t.lang);
     document.querySelectorAll('[data-i18n]').forEach(el => {
-      const key = el.getAttribute('data-i18n');
-      if (t[key] !== undefined) {
-        if (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA') {
-          el.placeholder = t[key];
-        } else {
-          el.textContent = t[key];
-        }
-      }
+      const k = el.getAttribute('data-i18n');
+      if (t[k] !== undefined) el.textContent = t[k];
     });
-
-    // Update switcher buttons
-    document.querySelectorAll('.lang-switcher-btn').forEach(btn => {
-      btn.textContent = this.current === 'ar' ? 'EN' : 'AR';
+    document.querySelectorAll('.lang-toggle').forEach(b => {
+      b.textContent = this.current === 'ar' ? 'EN' : 'AR';
     });
-
-    // Fire custom event for page-specific updates
-    document.dispatchEvent(new CustomEvent('rb:langchange', { detail: t }));
+    document.dispatchEvent(new CustomEvent('lang:change', { detail: t }));
   }
 };
 
 // ═══════════════════════════════════════════════════════
-// SHARED UI UTILITIES
+// CART
 // ═══════════════════════════════════════════════════════
-const RBUtils = {
-  formatPrice(price, lang) {
-    const t = RB_TRANSLATIONS[lang || RBLang.current];
-    return lang === 'en'
-      ? `${price.toLocaleString()} ${t.currency}`
-      : `${price.toLocaleString()} ${t.currency}`;
-  },
+const Cart = {
+  items: JSON.parse(localStorage.getItem('rb_cart') || '[]'),
+  save() { localStorage.setItem('rb_cart', JSON.stringify(this.items)); },
 
-  stars(rating) {
-    return '★'.repeat(rating) + '☆'.repeat(5 - rating);
-  },
-
-  showToast(message, type = 'success') {
-    let toast = document.getElementById('rb-toast');
-    if (!toast) {
-      toast = document.createElement('div');
-      toast.id = 'rb-toast';
-      toast.style.cssText = `
-        position:fixed; bottom:24px; ${RBLang.current === 'rtl' ? 'left' : 'right'}:24px; z-index:9999;
-        background:#3d3627; color:#f5d79d; padding:14px 22px;
-        font-family:'Tajawal',sans-serif; font-size:0.95rem;
-        border-${RBLang.current === 'ar' ? 'right' : 'left'}:3px solid #b39d72;
-        display:flex; align-items:center; gap:10px;
-        transform:translateY(80px); opacity:0;
-        transition:all 0.4s cubic-bezier(0.25,0.46,0.45,0.94);
-        box-shadow: 0 8px 32px rgba(61,54,39,0.4);
-      `;
-      document.body.appendChild(toast);
+  add(id) {
+    const ex = this.items.find(i => i.id === id);
+    if (ex) { ex.qty++; } else {
+      const p = PRODUCTS.find(x => x.id === id);
+      if (p) this.items.push({ id, qty: 1, price: p.price });
     }
-    toast.innerHTML = `<svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg> ${message}`;
-    toast.style.transform = 'translateY(0)';
-    toast.style.opacity = '1';
-    clearTimeout(RBUtils._toastTimer);
-    RBUtils._toastTimer = setTimeout(() => {
-      toast.style.transform = 'translateY(80px)';
-      toast.style.opacity = '0';
-    }, 3000);
+    this.save(); this.updateUI();
+  },
+  remove(id) {
+    this.items = this.items.filter(i => i.id !== id);
+    this.save(); this.updateUI(); this.renderDrawer();
+  },
+  updateQty(id, delta) {
+    const item = this.items.find(i => i.id === id);
+    if (!item) return;
+    item.qty = Math.max(1, item.qty + delta);
+    this.save(); this.updateUI(); this.renderDrawer();
+  },
+  count() { return this.items.reduce((s, i) => s + i.qty, 0); },
+  total() { return this.items.reduce((s, i) => s + i.qty * i.price, 0); },
+
+  updateUI() {
+    const c = this.count();
+    document.querySelectorAll('.cart-badge').forEach(el => {
+      el.textContent = c;
+      el.classList.toggle('visible', c > 0);
+    });
   },
 
-  // Build a product card HTML string
-  buildCard(product, lang) {
-    const t = RB_TRANSLATIONS[lang || RBLang.current];
-    const name = lang === 'en' ? product.nameEn : product.nameAr;
-    const desc = lang === 'en' ? product.descEn : product.descAr;
-    const badge = lang === 'en' ? product.badgeEn : product.badgeAr;
-    const badgeStyle = product.badge === 'bestseller'
-      ? 'background:#3d3627;color:#f5d79d;'
-      : product.badge === 'limited'
-      ? 'background:#524834;color:#f5d79d;'
-      : 'background:#b39d72;color:#f5f2ed;';
+  openDrawer() {
+    this.renderDrawer();
+    document.getElementById('cart-overlay')?.classList.add('open');
+    document.getElementById('cart-drawer')?.classList.add('open');
+    document.body.style.overflow = 'hidden';
+  },
+  closeDrawer() {
+    document.getElementById('cart-overlay')?.classList.remove('open');
+    document.getElementById('cart-drawer')?.classList.remove('open');
+    document.body.style.overflow = '';
+  },
 
-    return `
-      <div class="product-card" data-id="${product.id}" data-category="${product.category}">
-        <div class="product-image-wrap">
-          ${badge ? `<span class="badge-label" style="${badgeStyle}">${badge}</span>` : ''}
-          <button class="btn-wishlist" aria-label="wishlist" onclick="event.stopPropagation(); this.classList.toggle('active'); this.style.background=this.classList.contains('active')?'#b39d72':'rgba(245,242,237,0.9)';">
-            <svg width="16" height="16" fill="none" stroke="${product.badge ? '#f5f2ed' : '#b39d72'}" stroke-width="1.5" viewBox="0 0 24 24">
-              <path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/>
-            </svg>
+  renderDrawer() {
+    const t = Lang.t;
+    const lang = Lang.current;
+    const itemsEl = document.getElementById('cart-items');
+    const footerEl = document.getElementById('cart-footer');
+    if (!itemsEl || !footerEl) return;
+
+    if (this.items.length === 0) {
+      itemsEl.innerHTML = `
+        <div class="cart-empty">
+          <svg width="56" height="56" fill="none" stroke="currentColor" stroke-width="1" viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
+          <p style="font-size:0.95rem;">${t.cart_empty}</p>
+          <button onclick="Cart.closeDrawer();window.location.href='shop.html'" class="btn-primary" style="font-size:0.85rem;padding:12px 28px;">
+            ${t.nav_collection}
           </button>
-          <img src="${product.image}" alt="${name}" loading="lazy" />
-          <div class="quick-add-overlay">
-            <button class="btn-quick-add" onclick="event.stopPropagation(); RBCart.add(${product.id}); RBUtils.showToast('${t.cart_added}: ${name}');">
-              <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
-              <span data-i18n="quick_add">${t.quick_add}</span>
-            </button>
+        </div>`;
+      footerEl.style.display = 'none';
+      return;
+    }
+
+    footerEl.style.display = 'block';
+    itemsEl.innerHTML = this.items.map(item => {
+      const p = PRODUCTS.find(x => x.id === item.id);
+      if (!p) return '';
+      const name = lang === 'en' ? p.nameEn : p.nameAr;
+      return `
+        <div class="cart-item">
+          <img src="${p.image}" alt="${name}" class="cart-item-img" />
+          <div class="cart-item-info">
+            <div class="cart-item-name">${name}</div>
+            <div class="cart-item-price">${formatPrice(item.price)}</div>
+            <div class="cart-item-controls">
+              <div class="qty-control">
+                <button class="qty-btn" onclick="Cart.updateQty(${p.id},-1)">−</button>
+                <span class="qty-val">${item.qty}</span>
+                <button class="qty-btn" onclick="Cart.updateQty(${p.id},1)">+</button>
+              </div>
+              <button class="cart-item-remove" onclick="Cart.remove(${p.id})">${t.cart_remove}</button>
+            </div>
           </div>
-        </div>
-        <div class="card-body">
-          <div class="stars">${RBUtils.stars(product.rating)} <span class="review-count">(${product.reviews})</span></div>
-          <h3 class="card-name">${name}</h3>
-          <p class="card-desc">${desc}</p>
-          <div class="card-price-row">
-            <span class="card-price">${RBUtils.formatPrice(product.price, lang)}</span>
-            ${product.originalPrice ? `<span class="card-original">${RBUtils.formatPrice(product.originalPrice, lang)}</span>` : ''}
-          </div>
-          <button class="btn-view-details" onclick="window.location.href='product.html?id=${product.id}'" data-i18n="view_details">${t.view_details}</button>
-        </div>
-      </div>`;
+        </div>`;
+    }).join('');
+
+    document.getElementById('cart-total-val').textContent = formatPrice(this.total());
+    document.getElementById('cart-total-lbl').textContent = t.cart_total;
+    document.getElementById('cart-checkout-btn').textContent = t.cart_checkout;
+    document.getElementById('cart-title-text').textContent = t.cart_title;
   }
 };
 
 // ═══════════════════════════════════════════════════════
-// SHARED NAVBAR INIT
+// UTILITIES
 // ═══════════════════════════════════════════════════════
-function RBInitNavbar() {
-  // Scroll effect
-  const navbar = document.getElementById('navbar');
-  if (navbar) {
-    window.addEventListener('scroll', () => {
-      navbar.classList.toggle('scrolled', window.scrollY > 60);
-    });
+function formatPrice(n) {
+  return n.toLocaleString() + ' ' + Lang.t.currency;
+}
+function stars(r) { return '★'.repeat(r) + '☆'.repeat(5 - r); }
+
+function showToast(msg) {
+  let t = document.getElementById('app-toast');
+  if (!t) {
+    t = document.createElement('div');
+    t.id = 'app-toast';
+    t.className = 'toast';
+    document.body.appendChild(t);
+  }
+  t.innerHTML = `<svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg> ${msg}`;
+  t.classList.add('show');
+  clearTimeout(t._timer);
+  t._timer = setTimeout(() => t.classList.remove('show'), 3000);
+}
+
+function buildCard(p) {
+  const lang = Lang.current;
+  const t = Lang.t;
+  const name = lang === 'en' ? p.nameEn : p.nameAr;
+  const desc = lang === 'en' ? p.descEn : p.descAr;
+  const badge = p.badge ? (lang === 'en'
+    ? { bestseller:'Bestseller', new:'New', limited:'Limited' }[p.badge]
+    : { bestseller:'الأكثر مبيعاً', new:'جديد', limited:'إصدار محدود' }[p.badge]) : null;
+
+  return `
+    <div class="product-card" data-id="${p.id}" onclick="window.location.href='product.html?id=${p.id}'">
+      <div class="card-image-wrap">
+        ${badge ? `<span class="card-badge ${p.badge}">${badge}</span>` : ''}
+        <button class="card-wishlist" onclick="event.stopPropagation();this.classList.toggle('active');" aria-label="Wishlist">
+          <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>
+        </button>
+        <img src="${p.image}" alt="${name}" loading="lazy" />
+        <div class="card-overlay">
+          <button class="card-overlay-btn" onclick="event.stopPropagation();Cart.add(${p.id});showToast('${t.cart_added}: ${name}');">
+            ${t.quick_add}
+          </button>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="card-stars">${stars(p.rating)} <span class="count">(${p.reviews})</span></div>
+        <h3 class="card-name">${name}</h3>
+        <p class="card-desc">${desc}</p>
+        <div class="card-price-row">
+          <span class="card-price">${formatPrice(p.price)}</span>
+          ${p.originalPrice ? `<span class="card-price-old">${formatPrice(p.originalPrice)}</span>` : ''}
+        </div>
+      </div>
+    </div>`;
+}
+
+// ═══════════════════════════════════════════════════════
+// SHARED INIT
+// ═══════════════════════════════════════════════════════
+function initApp() {
+  // Navbar scroll
+  const nav = document.querySelector('.navbar');
+  if (nav) {
+    const check = () => nav.classList.toggle('scrolled', window.scrollY > 50);
+    window.addEventListener('scroll', check, { passive: true });
+    check();
   }
 
   // Mobile menu
-  const menuBtn = document.getElementById('menu-btn');
-  const menuClose = document.getElementById('menu-close');
-  const mobileMenu = document.getElementById('mobile-menu');
-  const backdrop = document.getElementById('menu-backdrop');
-
-  function toggleMenu() {
-    mobileMenu?.classList.toggle('open');
-    backdrop?.classList.toggle('hidden');
+  const mobOpen = document.getElementById('mob-open');
+  const mobClose = document.getElementById('mob-close');
+  const mobOverlay = document.getElementById('mob-overlay');
+  const mobDrawer = document.getElementById('mob-drawer');
+  function toggleMob(open) {
+    mobOverlay?.classList.toggle('open', open);
+    mobDrawer?.classList.toggle('open', open);
+    document.body.style.overflow = open ? 'hidden' : '';
   }
-  menuBtn?.addEventListener('click', toggleMenu);
-  menuClose?.addEventListener('click', toggleMenu);
-  backdrop?.addEventListener('click', toggleMenu);
+  mobOpen?.addEventListener('click', () => toggleMob(true));
+  mobClose?.addEventListener('click', () => toggleMob(false));
+  mobOverlay?.addEventListener('click', () => toggleMob(false));
 
-  // Language switcher
-  document.querySelectorAll('.lang-switcher-btn').forEach(btn => {
-    btn.addEventListener('click', () => {
-      RBLang.toggle();
-    });
-  });
+  // Cart drawer triggers
+  document.querySelectorAll('.cart-trigger').forEach(b =>
+    b.addEventListener('click', () => Cart.openDrawer())
+  );
+  document.getElementById('cart-close')?.addEventListener('click', () => Cart.closeDrawer());
+  document.getElementById('cart-overlay')?.addEventListener('click', () => Cart.closeDrawer());
 
-  // Init cart badge
-  RBCart.updateBadge();
+  // Language toggle
+  document.querySelectorAll('.lang-toggle').forEach(b =>
+    b.addEventListener('click', () => Lang.toggle())
+  );
 
-  // Apply saved language
-  RBLang.apply();
+  // Scroll reveal
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
+  }, { threshold: 0.08, rootMargin: '0px 0px -30px 0px' });
+  document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+
+  // Init state
+  Cart.updateUI();
+  Lang.apply();
 }
 
-// Auto-init on DOM ready
-document.addEventListener('DOMContentLoaded', RBInitNavbar);
+document.addEventListener('DOMContentLoaded', initApp);
