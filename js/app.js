@@ -1,11 +1,11 @@
 /**
- * Rose Baghdad V2.0 — Application Core
- * Shared: Product data, Cart state with drawer, Language system, Utilities
+ * Rose Baghdad V3.0 — Cinematic Ultra-Luxury Application Core
+ * Complete bilingual system, Cart, Product data, Glassmorphism UI
  */
 
-// ═══════════════════════════════════════════════════════
+// ═══════════════════════════════════════════════════════════════════════
 // PRODUCT DATA
-// ═══════════════════════════════════════════════════════
+// ═══════════════════════════════════════════════════════════════════════
 const PRODUCTS = [
   {
     id: 1, category: 'perfume', badge: 'bestseller',
@@ -89,47 +89,111 @@ const PRODUCTS = [
   }
 ];
 
-// ═══════════════════════════════════════════════════════
-// TRANSLATIONS
-// ═══════════════════════════════════════════════════════
+// ═══════════════════════════════════════════════════════════════════════
+// COMPLETE TRANSLATION DICTIONARY
+// ═══════════════════════════════════════════════════════════════════════
 const T = {
   ar: {
     dir: 'rtl', lang: 'ar',
     nav_home: 'الرئيسية', nav_collection: 'المجموعة', nav_story: 'قصتنا', nav_contact: 'تواصل معنا',
-    filter_all: 'الكل', filter_perfume: 'العطور', filter_incense: 'البخور', filter_sets: 'مجموعات الهدايا',
-    add_cart: 'أضف للسلة', quick_add: 'إضافة سريعة', view_details: 'عرض التفاصيل',
-    cart_title: 'سلة التسوق', cart_empty: 'سلتك فارغة', cart_checkout: 'إتمام الشراء',
-    cart_total: 'المجموع', cart_remove: 'إزالة', cart_added: 'تمت الإضافة',
-    currency: 'د.ع', pdp_back: 'العودة للمتجر', pdp_reviews: 'تقييم',
+    nav_logo_sub: 'للعطور والبخور',
     hero_over: '✦ تأسست في بغداد، ٢٠٢٢ ✦',
     hero_h1: 'حيث يغدو العطر فناً أصيلاً',
     hero_sub: 'عطور فاخرة وبخور أصيل تُصنع بشغف من قلب بغداد للذواقة',
-    hero_cta: 'اكتشف المجموعة', hero_story: 'قصتنا',
-    col_over: '✦ التشكيلة ✦', col_title: 'اكتشف عطورنا المميزة',
+    hero_cta: 'اكتشف المجموعة', hero_story: 'قصتنا', hero_scroll: 'اكتشف',
+    trust_vip: 'جودة كبار الشخصيات', trust_shipping: 'توصيل مجاني',
+    trust_authentic: 'مكونات أصيلة ١٠٠٪', trust_return: 'إرجاع خلال ٧ أيام',
+    col_over: '✦ التشكيلة ✦', col_title: 'اكتشف عطورنا <em>المميزة</em>',
+    filter_all: 'الكل', filter_perfume: 'العطور', filter_incense: 'البخور', filter_sets: 'مجموعات الهدايا',
     view_all: 'اكتشف التشكيلة الكاملة',
+    about_over: '✦ تراثنا ✦',
+    about_title: 'وُلدت من <span class="shimmer">روح بغداد</span>',
+    about_p1: 'تأسست "روز بغداد" في عام ٢٠٢٢ بهدف فريد — إحياء الفن القديم للعطور الشرقية وتقديمه لمن يبحث عن أكثر من مجرد رائحة عابرة. نحن نسعى لاستحضار الذكريات والمشاعر والهوية الأصيلة.',
+    about_p2: 'كل عطر هو رحلة عبر حدائق الورد في بغداد، إلى الأسواق العتيقة، والتقاليد الخالدة لثقافة البخور العربي.',
+    stat_perfumes: 'عطر فريد', stat_clients: 'عميل سعيد', stat_years: 'سنوات إبداع',
+    feat_over: '✦ تجربة روز بغداد ✦', feat_title: 'لماذا يختارنا <em>الذواقة</em>',
+    feat1_title: 'جودة كبار الشخصيات', feat1_desc: 'كل منتج يخضع لاختبارات جودة صارمة لضمان التميز الاستثنائي',
+    feat2_title: 'مباشرة من بغداد', feat2_desc: 'تُستخلص وتُصنع بكل أصالة وشغف من قلب العاصمة العراقية',
+    feat3_title: 'تغليف فاخر', feat3_desc: 'تغليف جاهز للإهداء يعكس الطبيعة الاستثنائية لعطورنا الراقية',
+    feat4_title: 'دعم مخصص', feat4_desc: 'استشارات عطرية شخصية متاحة لأعضاء وعملاء كبار الشخصيات',
+    test_over: '✦ قصص عملائنا ✦', test_title: 'ماذا يقول <em>مجتمعنا</em>',
+    test1_text: '"عطر عود ملكي يختلف عن أي شيء جربته من قبل. يدوم طوال اليوم وفوحانه ساحر. أصبحت روز بغداد المفضلة لدي."',
+    test1_name: 'أحمد كريم', test1_city: 'بغداد، العراق',
+    test2_text: '"طلبت مجموعة حديقة الورد كهدية وعائلتي انبهرت تماماً. التغليف بحد ذاته لوحة فنية. تستحق كل دينار."',
+    test2_name: 'نور الرشيد', test2_city: 'أربيل، العراق',
+    test3_text: '"البخور المقدس أكثر بخور أصيل وجدته منذ سنوات. رائحته تملأ المنزل وتبقى ساعات طويلة. فخامة حقيقية."',
+    test3_name: 'فاطمة سعيد', test3_city: 'البصرة، العراق',
+    nl_over: '✦ انضم لدائرتنا الخاصة ✦',
+    nl_title: 'كن أول من يكتشف<br/>إصداراتنا الجديدة',
+    nl_sub: 'اشترك لتلقي وصول مبكر حصري وعروض كبار الشخصيات من قلب بغداد.',
+    nl_placeholder: 'أدخل بريدك الإلكتروني', nl_btn: 'اشترك الآن', nl_success: 'تم التسجيل بنجاح! ✓',
+    footer_desc: 'روز بغداد — ملاذ العطور الشرقية، حيث تلتقي التقاليد العريقة بالفخامة العصرية. تأسست بكل حب في بغداد، ٢٠٢٢.',
+    footer_quick: 'روابط سريعة', footer_categories: 'الفئات', footer_contact_title: 'تواصل معنا',
+    footer_perfumes: 'العطور', footer_incense: 'البخور', footer_gift_sets: 'مجموعات الهدايا',
+    footer_location: 'بغداد، العراق',
+    footer_copyright: '© 2026 روز بغداد. جميع الحقوق محفوظة.',
+    footer_privacy: 'سياسة الخصوصية', footer_terms: 'شروط الخدمة',
+    mob_established: 'تأسست ٢٠٢٢', mob_location: 'بغداد، العراق',
+    cart_title: 'سلة التسوق', cart_empty: 'سلتك فارغة', cart_checkout: 'إتمام الشراء',
+    cart_total: 'المجموع', cart_remove: 'إزالة', cart_added: 'تمت الإضافة',
+    add_cart: 'أضف للسلة', quick_add: 'إضافة سريعة', view_details: 'عرض التفاصيل',
+    currency: 'د.ع', pdp_back: 'العودة للمتجر', pdp_reviews: 'تقييم',
+    badge_bestseller: 'الأكثر مبيعاً', badge_new: 'جديد', badge_limited: 'إصدار محدود',
     shop_title: 'المجموعة الكاملة',
   },
   en: {
     dir: 'ltr', lang: 'en',
     nav_home: 'Home', nav_collection: 'Collection', nav_story: 'Our Story', nav_contact: 'Contact',
-    filter_all: 'All', filter_perfume: 'Perfumes', filter_incense: 'Incense', filter_sets: 'Gift Sets',
-    add_cart: 'Add to Cart', quick_add: 'Quick Add', view_details: 'View Details',
-    cart_title: 'Shopping Cart', cart_empty: 'Your cart is empty', cart_checkout: 'Checkout',
-    cart_total: 'Total', cart_remove: 'Remove', cart_added: 'Added to cart',
-    currency: 'IQD', pdp_back: 'Back to Shop', pdp_reviews: 'reviews',
+    nav_logo_sub: 'Perfumes & Incense',
     hero_over: '✦ Est. Baghdad, 2022 ✦',
     hero_h1: 'Where Scent Becomes Art',
     hero_sub: 'Handcrafted luxury perfumes & premium incense from the heart of Baghdad',
-    hero_cta: 'Discover Collection', hero_story: 'Our Story',
-    col_over: '✦ The Collection ✦', col_title: 'Discover Our Signature Scents',
+    hero_cta: 'Discover Collection', hero_story: 'Our Story', hero_scroll: 'SCROLL',
+    trust_vip: 'VIP Quality', trust_shipping: 'Free Shipping',
+    trust_authentic: '100% Authentic', trust_return: '7-Day Returns',
+    col_over: '✦ The Collection ✦', col_title: 'Discover Our <em>Signature</em> Scents',
+    filter_all: 'All', filter_perfume: 'Perfumes', filter_incense: 'Incense', filter_sets: 'Gift Sets',
     view_all: 'View Full Collection',
+    about_over: '✦ Our Heritage ✦',
+    about_title: 'Born from the <span class="shimmer">Soul of Baghdad</span>',
+    about_p1: 'Rose Baghdad was founded in 2022 with a singular vision — to revive the ancient art of Oriental perfumery and present it to those who seek more than a fleeting scent. We strive to evoke memories, emotions, and authentic identity.',
+    about_p2: 'Each fragrance is a journey through the rose gardens of Baghdad, into the timeless souks, and the enduring traditions of Arabian incense culture.',
+    stat_perfumes: 'Unique Scents', stat_clients: 'Happy Clients', stat_years: 'Years of Craft',
+    feat_over: '✦ The Rose Baghdad Experience ✦', feat_title: 'Why <em>Connoisseurs</em> Choose Us',
+    feat1_title: 'VIP Quality', feat1_desc: 'Every product undergoes rigorous quality testing to ensure exceptional excellence',
+    feat2_title: 'Direct from Baghdad', feat2_desc: 'Extracted and crafted with authenticity and passion from the heart of the Iraqi capital',
+    feat3_title: 'Luxury Packaging', feat3_desc: 'Gift-ready packaging that reflects the exceptional nature of our premium fragrances',
+    feat4_title: 'Dedicated Support', feat4_desc: 'Personal fragrance consultations available for VIP members and clients',
+    test_over: '✦ Client Stories ✦', test_title: 'What Our <em>Community</em> Says',
+    test1_text: '"Oud Royal is unlike anything I\'ve ever tried. It lasts all day with an enchanting sillage. Rose Baghdad has become my absolute favorite."',
+    test1_name: 'Ahmed Kareem', test1_city: 'Baghdad, Iraq',
+    test2_text: '"I ordered the Rose Garden Set as a gift and my family was completely amazed. The packaging alone is a work of art. Worth every dinar."',
+    test2_name: 'Noor Al-Rashid', test2_city: 'Erbil, Iraq',
+    test3_text: '"Sacred Bakhoor is the most authentic incense I\'ve found in years. Its scent fills the home and lingers for hours. True luxury."',
+    test3_name: 'Fatima Saeed', test3_city: 'Basra, Iraq',
+    nl_over: '✦ Join Our Inner Circle ✦',
+    nl_title: 'Be the First to Discover<br/>Our New Releases',
+    nl_sub: 'Subscribe for exclusive early access and VIP offers from the heart of Baghdad.',
+    nl_placeholder: 'Enter your email address', nl_btn: 'Subscribe Now', nl_success: 'Successfully subscribed! ✓',
+    footer_desc: 'Rose Baghdad — a sanctuary of Oriental fragrances, where timeless traditions meet modern luxury. Founded with love in Baghdad, 2022.',
+    footer_quick: 'Quick Links', footer_categories: 'Categories', footer_contact_title: 'Contact Us',
+    footer_perfumes: 'Perfumes', footer_incense: 'Incense', footer_gift_sets: 'Gift Sets',
+    footer_location: 'Baghdad, Iraq',
+    footer_copyright: '© 2026 Rose Baghdad. All rights reserved.',
+    footer_privacy: 'Privacy Policy', footer_terms: 'Terms of Service',
+    mob_established: 'Est. 2022', mob_location: 'Baghdad, Iraq',
+    cart_title: 'Shopping Cart', cart_empty: 'Your cart is empty', cart_checkout: 'Checkout',
+    cart_total: 'Total', cart_remove: 'Remove', cart_added: 'Added to cart',
+    add_cart: 'Add to Cart', quick_add: 'Quick Add', view_details: 'View Details',
+    currency: 'IQD', pdp_back: 'Back to Shop', pdp_reviews: 'reviews',
+    badge_bestseller: 'Bestseller', badge_new: 'New', badge_limited: 'Limited',
     shop_title: 'Full Collection',
   }
 };
 
-// ═══════════════════════════════════════════════════════
-// LANGUAGE
-// ═══════════════════════════════════════════════════════
+// ═══════════════════════════════════════════════════════════════════════
+// LANGUAGE SYSTEM
+// ═══════════════════════════════════════════════════════════════════════
 const Lang = {
   current: localStorage.getItem('rb_lang') || 'ar',
   get t() { return T[this.current]; },
@@ -144,22 +208,37 @@ const Lang = {
     document.documentElement.setAttribute('lang', t.lang);
     document.querySelectorAll('[data-i18n]').forEach(el => {
       const k = el.getAttribute('data-i18n');
-      if (t[k] !== undefined) el.textContent = t[k];
+      if (t[k] !== undefined) {
+        if (t[k].includes('<')) { el.innerHTML = t[k]; } else { el.textContent = t[k]; }
+      }
+    });
+    document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
+      const k = el.getAttribute('data-i18n-placeholder');
+      if (t[k]) el.placeholder = t[k];
     });
     document.querySelectorAll('.lang-toggle').forEach(b => {
       b.textContent = this.current === 'ar' ? 'EN' : 'AR';
     });
+    document.title = this.current === 'ar'
+      ? 'روز بغداد | للعطور والبخور'
+      : 'Rose Baghdad | Perfumes & Incense';
+    const metaDesc = document.querySelector('meta[name="description"]');
+    if (metaDesc) {
+      metaDesc.setAttribute('content', this.current === 'ar'
+        ? 'روز بغداد — عطور وبخور فاخرة من قلب بغداد. اكتشف مجموعتنا الاستثنائية من أجود العطور الشرقية.'
+        : 'Rose Baghdad — Luxury perfumes and premium incense from the heart of Baghdad. Discover our exceptional collection of the finest Oriental fragrances.'
+      );
+    }
     document.dispatchEvent(new CustomEvent('lang:change', { detail: t }));
   }
 };
 
-// ═══════════════════════════════════════════════════════
-// CART
-// ═══════════════════════════════════════════════════════
+// ═══════════════════════════════════════════════════════════════════════
+// CART SYSTEM
+// ═══════════════════════════════════════════════════════════════════════
 const Cart = {
   items: JSON.parse(localStorage.getItem('rb_cart') || '[]'),
   save() { localStorage.setItem('rb_cart', JSON.stringify(this.items)); },
-
   add(id) {
     const ex = this.items.find(i => i.id === id);
     if (ex) { ex.qty++; } else {
@@ -180,7 +259,6 @@ const Cart = {
   },
   count() { return this.items.reduce((s, i) => s + i.qty, 0); },
   total() { return this.items.reduce((s, i) => s + i.qty * i.price, 0); },
-
   updateUI() {
     const c = this.count();
     document.querySelectorAll('.cart-badge').forEach(el => {
@@ -188,7 +266,6 @@ const Cart = {
       el.classList.toggle('visible', c > 0);
     });
   },
-
   openDrawer() {
     this.renderDrawer();
     document.getElementById('cart-overlay')?.classList.add('open');
@@ -200,27 +277,24 @@ const Cart = {
     document.getElementById('cart-drawer')?.classList.remove('open');
     document.body.style.overflow = '';
   },
-
   renderDrawer() {
     const t = Lang.t;
     const lang = Lang.current;
     const itemsEl = document.getElementById('cart-items');
     const footerEl = document.getElementById('cart-footer');
     if (!itemsEl || !footerEl) return;
-
     if (this.items.length === 0) {
       itemsEl.innerHTML = `
         <div class="cart-empty">
           <svg width="56" height="56" fill="none" stroke="currentColor" stroke-width="1" viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
           <p style="font-size:0.95rem;">${t.cart_empty}</p>
-          <button onclick="Cart.closeDrawer();window.location.href='shop.html'" class="btn-primary" style="font-size:0.85rem;padding:12px 28px;">
+          <button onclick="Cart.closeDrawer();window.location.href='shop.html'" class="btn-primary" style="font-size:0.85rem;padding:14px 32px;">
             ${t.nav_collection}
           </button>
         </div>`;
       footerEl.style.display = 'none';
       return;
     }
-
     footerEl.style.display = 'block';
     itemsEl.innerHTML = this.items.map(item => {
       const p = PRODUCTS.find(x => x.id === item.id);
@@ -243,7 +317,6 @@ const Cart = {
           </div>
         </div>`;
     }).join('');
-
     document.getElementById('cart-total-val').textContent = formatPrice(this.total());
     document.getElementById('cart-total-lbl').textContent = t.cart_total;
     document.getElementById('cart-checkout-btn').textContent = t.cart_checkout;
@@ -251,39 +324,34 @@ const Cart = {
   }
 };
 
-// ═══════════════════════════════════════════════════════
+// ═══════════════════════════════════════════════════════════════════════
 // UTILITIES
-// ═══════════════════════════════════════════════════════
-function formatPrice(n) {
-  return n.toLocaleString() + ' ' + Lang.t.currency;
-}
+// ═══════════════════════════════════════════════════════════════════════
+function formatPrice(n) { return n.toLocaleString() + ' ' + Lang.t.currency; }
 function stars(r) { return '★'.repeat(r) + '☆'.repeat(5 - r); }
 
 function showToast(msg) {
   let t = document.getElementById('app-toast');
-  if (!t) {
-    t = document.createElement('div');
-    t.id = 'app-toast';
-    t.className = 'toast';
-    document.body.appendChild(t);
-  }
+  if (!t) { t = document.createElement('div'); t.id = 'app-toast'; t.className = 'toast'; document.body.appendChild(t); }
   t.innerHTML = `<svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg> ${msg}`;
   t.classList.add('show');
   clearTimeout(t._timer);
   t._timer = setTimeout(() => t.classList.remove('show'), 3000);
 }
 
+// ═══════════════════════════════════════════════════════════════════════
+// PRODUCT CARD BUILDER — Glassmorphism with Two Buttons
+// ═══════════════════════════════════════════════════════════════════════
 function buildCard(p) {
   const lang = Lang.current;
   const t = Lang.t;
   const name = lang === 'en' ? p.nameEn : p.nameAr;
   const desc = lang === 'en' ? p.descEn : p.descAr;
-  const badge = p.badge ? (lang === 'en'
-    ? { bestseller:'Bestseller', new:'New', limited:'Limited' }[p.badge]
-    : { bestseller:'الأكثر مبيعاً', new:'جديد', limited:'إصدار محدود' }[p.badge]) : null;
+  const badge = p.badge ? t['badge_' + p.badge] : null;
+  const safeName = name.replace(/'/g, "\\'");
 
   return `
-    <div class="product-card" data-id="${p.id}" onclick="window.location.href='product.html?id=${p.id}'">
+    <div class="product-card" data-id="${p.id}">
       <div class="card-image-wrap">
         ${badge ? `<span class="card-badge ${p.badge}">${badge}</span>` : ''}
         <button class="card-wishlist" onclick="event.stopPropagation();this.classList.toggle('active');" aria-label="Wishlist">
@@ -291,9 +359,8 @@ function buildCard(p) {
         </button>
         <img src="${p.image}" alt="${name}" loading="lazy" />
         <div class="card-overlay">
-          <button class="card-overlay-btn" onclick="event.stopPropagation();Cart.add(${p.id});showToast('${t.cart_added}: ${name}');">
-            ${t.quick_add}
-          </button>
+          <button class="card-overlay-btn btn-add-cart" onclick="event.stopPropagation();Cart.add(${p.id});showToast('${t.cart_added}: ${safeName}')">${t.add_cart}</button>
+          <button class="card-overlay-btn btn-view-details" onclick="event.stopPropagation();window.location.href='product.html?id=${p.id}'">${t.view_details}</button>
         </div>
       </div>
       <div class="card-body">
@@ -308,19 +375,16 @@ function buildCard(p) {
     </div>`;
 }
 
-// ═══════════════════════════════════════════════════════
-// SHARED INIT
-// ═══════════════════════════════════════════════════════
+// ═══════════════════════════════════════════════════════════════════════
+// APP INITIALIZATION
+// ═══════════════════════════════════════════════════════════════════════
 function initApp() {
-  // Navbar scroll
   const nav = document.querySelector('.navbar');
   if (nav) {
-    const check = () => nav.classList.toggle('scrolled', window.scrollY > 50);
+    const check = () => nav.classList.toggle('scrolled', window.scrollY > 60);
     window.addEventListener('scroll', check, { passive: true });
     check();
   }
-
-  // Mobile menu
   const mobOpen = document.getElementById('mob-open');
   const mobClose = document.getElementById('mob-close');
   const mobOverlay = document.getElementById('mob-overlay');
@@ -333,26 +397,21 @@ function initApp() {
   mobOpen?.addEventListener('click', () => toggleMob(true));
   mobClose?.addEventListener('click', () => toggleMob(false));
   mobOverlay?.addEventListener('click', () => toggleMob(false));
-
-  // Cart drawer triggers
+  document.querySelectorAll('.mobile-nav a').forEach(a => {
+    a.addEventListener('click', () => toggleMob(false));
+  });
   document.querySelectorAll('.cart-trigger').forEach(b =>
     b.addEventListener('click', () => Cart.openDrawer())
   );
   document.getElementById('cart-close')?.addEventListener('click', () => Cart.closeDrawer());
   document.getElementById('cart-overlay')?.addEventListener('click', () => Cart.closeDrawer());
-
-  // Language toggle
   document.querySelectorAll('.lang-toggle').forEach(b =>
     b.addEventListener('click', () => Lang.toggle())
   );
-
-  // Scroll reveal
   const obs = new IntersectionObserver(entries => {
     entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
-  }, { threshold: 0.08, rootMargin: '0px 0px -30px 0px' });
+  }, { threshold: 0.06, rootMargin: '0px 0px -40px 0px' });
   document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
-
-  // Init state
   Cart.updateUI();
   Lang.apply();
 }
