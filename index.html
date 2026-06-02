@@ -9,42 +9,61 @@
 </head>
 <body>
 
+<!-- ═══ AMBIENT BACKGROUND ORBS — Static, no scroll jitter ═══ -->
+<div class="ambient-orb orb-1" aria-hidden="true"></div>
+<div class="ambient-orb orb-2" aria-hidden="true"></div>
+<div class="ambient-orb orb-3" aria-hidden="true"></div>
+
 <!-- ════════════════════ NAVBAR ════════════════════ -->
-<nav class="navbar">
+<nav class="navbar" id="main-nav" aria-label="Main navigation">
   <div class="navbar-inner">
-    <a href="index.html" class="nav-logo">
-      <img src="assets/images/logo_transparent.png" alt="Rose Baghdad" class="nav-logo-img" />
+
+    <!-- Logo -->
+    <a href="index.html" class="nav-logo" aria-label="Rose Baghdad Home">
+      <div class="logo-img-wrap">
+        <img src="assets/images/logo_transparent.png" alt="Rose Baghdad Logo" />
+      </div>
       <div class="nav-logo-text">
         <div class="nav-logo-name">ROSE BAGHDAD</div>
         <div class="nav-logo-sub" data-i18n="nav_logo_sub">للعطور والبخور</div>
       </div>
     </a>
-    <ul class="nav-links">
+
+    <!-- Desktop Links -->
+    <ul class="nav-links" role="list">
       <li><a href="index.html" class="active" data-i18n="nav_home">الرئيسية</a></li>
       <li><a href="shop.html" data-i18n="nav_collection">المجموعة</a></li>
       <li><a href="#about" data-i18n="nav_story">قصتنا</a></li>
       <li><a href="#contact" data-i18n="nav_contact">تواصل معنا</a></li>
     </ul>
+
+    <!-- Actions -->
     <div class="nav-actions">
-      <button class="lang-toggle">EN</button>
-      <button class="nav-btn cart-trigger" aria-label="Cart">
-        <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
-        <span class="cart-badge">0</span>
+      <button class="lang-toggle" aria-label="Toggle language">EN</button>
+      <button class="nav-btn cart-trigger" aria-label="Open cart" id="nav-cart-btn">
+        <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+          <path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/>
+          <line x1="3" y1="6" x2="21" y2="6"/>
+          <path d="M16 10a4 4 0 01-8 0"/>
+        </svg>
+        <span class="cart-badge" aria-live="polite">0</span>
       </button>
-      <button class="hamburger" id="mob-open" aria-label="Menu">
+      <button class="hamburger" id="mob-open" aria-label="Open menu" aria-expanded="false">
         <span></span><span></span><span></span>
       </button>
     </div>
   </div>
 </nav>
 
-<!-- Mobile Menu -->
-<div class="mobile-overlay" id="mob-overlay"></div>
-<div class="mobile-drawer" id="mob-drawer">
-  <button class="mobile-close" id="mob-close">
-    <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+<!-- ════════════════════ MOBILE MENU ════════════════════ -->
+<div class="mobile-overlay" id="mob-overlay" role="presentation"></div>
+<div class="mobile-drawer" id="mob-drawer" role="dialog" aria-label="Mobile navigation">
+  <button class="mobile-close" id="mob-close" aria-label="Close menu">
+    <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+      <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+    </svg>
   </button>
-  <nav class="mobile-nav">
+  <nav class="mobile-nav" role="navigation">
     <a href="index.html" data-i18n="nav_home">الرئيسية</a>
     <a href="shop.html" data-i18n="nav_collection">المجموعة</a>
     <a href="#about" data-i18n="nav_story">قصتنا</a>
@@ -52,23 +71,25 @@
   </nav>
   <div class="mobile-footer">
     <div>
-      <div style="color:var(--gold);font-size:0.82rem;" data-i18n="mob_established">تأسست ٢٠٢٢</div>
-      <div style="color:rgba(255,255,255,0.3);font-size:0.72rem;margin-top:4px;" data-i18n="mob_location">بغداد، العراق</div>
+      <div style="color:var(--gold);font-size:0.80rem;" data-i18n="mob_established">تأسست ٢٠٢٢</div>
+      <div style="color:var(--text-dim);font-size:0.70rem;margin-top:4px;" data-i18n="mob_location">بغداد، العراق</div>
     </div>
     <button class="lang-toggle">EN</button>
   </div>
 </div>
 
-<!-- Cart Drawer -->
-<div class="cart-overlay" id="cart-overlay"></div>
-<div class="cart-drawer" id="cart-drawer">
+<!-- ════════════════════ CART DRAWER ════════════════════ -->
+<div class="cart-overlay" id="cart-overlay" role="presentation"></div>
+<div class="cart-drawer" id="cart-drawer" role="dialog" aria-label="Shopping cart">
   <div class="cart-drawer-header">
     <h2 class="cart-drawer-title" id="cart-title-text" data-i18n="cart_title">سلة التسوق</h2>
-    <button class="cart-close" id="cart-close">
-      <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    <button class="cart-close" id="cart-close" aria-label="Close cart">
+      <svg width="17" height="17" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+        <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+      </svg>
     </button>
   </div>
-  <div class="cart-items" id="cart-items"></div>
+  <div class="cart-items" id="cart-items" role="list"></div>
   <div class="cart-drawer-footer" id="cart-footer" style="display:none;">
     <div class="cart-total-row">
       <span class="cart-total-label" id="cart-total-lbl" data-i18n="cart_total">المجموع</span>
@@ -79,61 +100,93 @@
 </div>
 
 
-<!-- ════════════════════ HERO ════════════════════ -->
-<section class="hero">
+<!-- ════════════════════════════════════════════════════════════
+     HERO — Open typography, NO box, cinematic BG, no scroll jitter
+═══════════════════════════════════════════════════════════════ -->
+<section class="hero" id="hero">
+
+  <!-- Static background — NO background-attachment:fixed -->
   <div class="hero-bg" id="hero-bg"></div>
   <div class="hero-grad"></div>
-  <div class="hero-particles" id="hero-particles"></div>
+  <div class="hero-vignette"></div>
+  <div class="hero-particles" id="hero-particles" aria-hidden="true"></div>
 
+  <!-- Open content — no glass box -->
   <div class="hero-content">
-    <div class="hero-logo-wrap">
-      <img src="assets/images/logo_transparent.png" alt="Rose Baghdad" class="hero-logo" />
+
+    <!-- Logo: white circle + multiply blend -->
+    <div class="hero-logo-wrap" aria-hidden="true">
+      <img src="assets/images/logo_transparent.png" alt="" class="hero-logo" />
     </div>
+
     <p class="hero-overline" data-i18n="hero_over">✦ تأسست في بغداد، ٢٠٢٢ ✦</p>
+
+    <!-- h1 split into two lines for maximum typographic impact -->
     <h1 class="hero-h1">
-      <span class="shimmer" data-i18n="hero_h1">حيث يغدو العطر فناً أصيلاً</span>
+      <span data-i18n="hero_h1_1">حيث يغدو العطر</span><br/>
+      <span class="shimmer" data-i18n="hero_h1_shimmer">فناً أصيلاً</span>
     </h1>
-    <p class="hero-sub" data-i18n="hero_sub">عطور فاخرة وبخور أصيل تُصنع بشغف من قلب بغداد للذواقة</p>
+
+    <p class="hero-sub" data-i18n="hero_sub">
+      عطور فاخرة وبخور أصيل تُصنع بشغف من قلب بغداد للذواقة
+    </p>
+
     <div class="hero-actions">
-      <a href="shop.html" class="btn-primary">
+      <a href="shop.html" class="btn-primary" id="hero-cta">
         <span data-i18n="hero_cta">اكتشف المجموعة</span>
-        <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" style="transform:rotate(180deg)"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"
+             style="transform:rotate(180deg)">
+          <path d="M5 12h14M12 5l7 7-7 7"/>
+        </svg>
       </a>
-      <a href="#about" class="btn-outline" data-i18n="hero_story">قصتنا</a>
+      <a href="#about" class="btn-outline" data-i18n="hero_story_btn">قصتنا</a>
     </div>
+
   </div>
 
-  <div class="scroll-indicator">
+  <!-- Scroll indicator -->
+  <div class="scroll-indicator" aria-hidden="true">
     <span data-i18n="hero_scroll">اكتشف</span>
     <div class="scroll-line"></div>
   </div>
+
 </section>
 
 
 <!-- ════════════════════ TRUST STRIP ════════════════════ -->
-<div class="trust-strip">
+<div class="trust-strip" role="region" aria-label="Trust badges">
   <div class="trust-inner">
     <div class="trust-item">
       <div class="trust-icon-wrap">
-        <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+        <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+          <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+        </svg>
       </div>
       <span data-i18n="trust_vip">جودة كبار الشخصيات</span>
     </div>
     <div class="trust-item">
       <div class="trust-icon-wrap">
-        <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><rect x="1" y="3" width="15" height="13"/><path d="M16 8h4l3 3v5h-7V8z"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
+        <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+          <rect x="1" y="3" width="15" height="13"/><path d="M16 8h4l3 3v5h-7V8z"/>
+          <circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/>
+        </svg>
       </div>
       <span data-i18n="trust_shipping">توصيل مجاني</span>
     </div>
     <div class="trust-item">
       <div class="trust-icon-wrap">
-        <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+          <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+        </svg>
       </div>
       <span data-i18n="trust_authentic">مكونات أصيلة ١٠٠٪</span>
     </div>
     <div class="trust-item">
       <div class="trust-icon-wrap">
-        <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0114.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0020.49 15"/></svg>
+        <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+          <polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/>
+          <path d="M3.51 9a9 9 0 0114.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0020.49 15"/>
+        </svg>
       </div>
       <span data-i18n="trust_return">إرجاع خلال ٧ أيام</span>
     </div>
@@ -141,60 +194,82 @@
 </div>
 
 
-<!-- ════════════════════ PRODUCTS PREVIEW ════════════════════ -->
-<section class="section collection-section" id="collection">
+<!-- ════════════════════ PRODUCTS ════════════════════ -->
+<section class="section collection-section dark-section" id="collection" aria-labelledby="col-title">
   <div class="section-inner">
+
     <div class="section-header reveal">
       <p class="section-overline" data-i18n="col_over">✦ التشكيلة ✦</p>
-      <h2 class="section-title" data-i18n="col_title">اكتشف عطورنا <em>المميزة</em></h2>
+      <h2 class="section-title" id="col-title" data-i18n="col_title">
+        اكتشف عطورنا <em>المميزة</em>
+      </h2>
       <div class="section-divider"></div>
     </div>
 
-    <div class="filter-bar" id="home-filter">
-      <button class="filter-pill active" data-filter="all" data-i18n="filter_all">الكل</button>
-      <button class="filter-pill" data-filter="perfume" data-i18n="filter_perfume">العطور</button>
-      <button class="filter-pill" data-filter="incense" data-i18n="filter_incense">البخور</button>
-      <button class="filter-pill" data-filter="sets" data-i18n="filter_sets">مجموعات الهدايا</button>
+    <!-- Filters — dark background → gray-400 inactive text -->
+    <div class="filter-bar" id="home-filter" role="group" aria-label="Filter products">
+      <button class="filter-pill active" data-filter="all"     data-i18n="filter_all">الكل</button>
+      <button class="filter-pill"         data-filter="perfume" data-i18n="filter_perfume">العطور</button>
+      <button class="filter-pill"         data-filter="incense" data-i18n="filter_incense">البخور</button>
+      <button class="filter-pill"         data-filter="sets"    data-i18n="filter_sets">مجموعات الهدايا</button>
     </div>
 
-    <div class="products-grid" id="home-grid"></div>
+    <div class="products-grid" id="home-grid" role="list"></div>
 
-    <div style="text-align:center; margin-top:clamp(56px,7vw,80px);" class="reveal">
-      <a href="shop.html" class="btn-primary">
+    <div style="text-align:center;margin-top:clamp(52px,7vw,80px);" class="reveal">
+      <a href="shop.html" class="btn-primary" id="view-all-btn">
         <span data-i18n="view_all">اكتشف التشكيلة الكاملة</span>
-        <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" style="transform:rotate(180deg)"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"
+             style="transform:rotate(180deg)">
+          <path d="M5 12h14M12 5l7 7-7 7"/>
+        </svg>
       </a>
     </div>
+
   </div>
 </section>
 
 
 <!-- ════════════════════ ABOUT ════════════════════ -->
-<section class="section about" id="about">
+<section class="section about dark-section" id="about" aria-labelledby="about-title">
   <div class="section-inner">
     <div class="about-grid">
+
+      <!-- Text -->
       <div class="reveal">
         <p class="section-overline" data-i18n="about_over">✦ تراثنا ✦</p>
-        <h2 class="section-title" style="color:#fff;" data-i18n="about_title">
-          وُلدت من <span class="shimmer">روح بغداد</span>
+        <h2 class="section-title" id="about-title" style="color:var(--text-white);">
+          <span data-i18n="about_title_1">وُلدت من</span>
+          <span class="shimmer" data-i18n="about_title_shimmer"> روح بغداد</span>
         </h2>
-        <div style="width:56px;height:1px;background:linear-gradient(90deg,var(--gold),transparent);margin:32px 0;"></div>
+        <div style="width:48px;height:1px;background:linear-gradient(90deg,var(--gold),transparent);margin:28px 0;"></div>
         <div class="about-text-content">
           <p data-i18n="about_p1">
-            تأسست "روز بغداد" في عام ٢٠٢٢ بهدف فريد — إحياء الفن القديم للعطور الشرقية وتقديمه لمن يبحث عن أكثر من مجرد رائحة عابرة. نحن نسعى لاستحضار الذكريات والمشاعر والهوية الأصيلة.
+            تأسست "روز بغداد" في عام ٢٠٢٢ بهدف فريد — إحياء الفن القديم للعطور الشرقية وتقديمه لمن يبحث عن أكثر من مجرد رائحة عابرة.
           </p>
           <p data-i18n="about_p2">
             كل عطر هو رحلة عبر حدائق الورد في بغداد، إلى الأسواق العتيقة، والتقاليد الخالدة لثقافة البخور العربي.
           </p>
         </div>
         <div class="about-stats">
-          <div class="stat"><div class="stat-num">+50</div><div class="stat-label" data-i18n="stat_perfumes">عطر فريد</div></div>
-          <div class="stat"><div class="stat-num">+2K</div><div class="stat-label" data-i18n="stat_clients">عميل سعيد</div></div>
-          <div class="stat"><div class="stat-num">4</div><div class="stat-label" data-i18n="stat_years">سنوات إبداع</div></div>
+          <div class="stat">
+            <div class="stat-num">+50</div>
+            <div class="stat-label" data-i18n="stat_perfumes">عطر فريد</div>
+          </div>
+          <div class="stat">
+            <div class="stat-num">+2K</div>
+            <div class="stat-label" data-i18n="stat_clients">عميل سعيد</div>
+          </div>
+          <div class="stat">
+            <div class="stat-num">4</div>
+            <div class="stat-label" data-i18n="stat_years">سنوات إبداع</div>
+          </div>
         </div>
       </div>
+
+      <!-- Orb — white circle + multiply blend -->
       <div class="about-orb-wrap reveal reveal-d2">
-        <div class="about-orb">
+        <div class="about-orb" aria-hidden="true">
           <div class="orb-ring"></div>
           <div class="orb-ring-2"></div>
           <div class="orb-circle">
@@ -202,53 +277,83 @@
           </div>
         </div>
       </div>
+
     </div>
   </div>
 </section>
 
 
 <!-- ════════════════════ FEATURES ════════════════════ -->
-<section class="section features-section" id="features">
+<section class="section features-section dark-section" id="features" aria-labelledby="feat-title">
   <div class="section-inner">
     <div class="section-header reveal">
       <p class="section-overline" data-i18n="feat_over">✦ تجربة روز بغداد ✦</p>
-      <h2 class="section-title" data-i18n="feat_title">لماذا يختارنا <em>الذواقة</em></h2>
+      <h2 class="section-title" id="feat-title" style="color:var(--text-white);" data-i18n="feat_title">
+        لماذا يختارنا <em>الذواقة</em>
+      </h2>
     </div>
     <div class="features-grid">
+
       <div class="feat-card reveal reveal-d1">
-        <div class="feat-icon"><svg width="26" height="26" fill="none" stroke="currentColor" stroke-width="1.3" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></div>
+        <div class="feat-icon">
+          <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.3" viewBox="0 0 24 24">
+            <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+          </svg>
+        </div>
         <div class="feat-title" data-i18n="feat1_title">جودة كبار الشخصيات</div>
         <div class="feat-desc" data-i18n="feat1_desc">كل منتج يخضع لاختبارات جودة صارمة لضمان التميز الاستثنائي</div>
       </div>
+
       <div class="feat-card reveal reveal-d2">
-        <div class="feat-icon"><svg width="26" height="26" fill="none" stroke="currentColor" stroke-width="1.3" viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></div>
+        <div class="feat-icon">
+          <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.3" viewBox="0 0 24 24">
+            <path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/>
+            <polyline points="9 22 9 12 15 12 15 22"/>
+          </svg>
+        </div>
         <div class="feat-title" data-i18n="feat2_title">مباشرة من بغداد</div>
         <div class="feat-desc" data-i18n="feat2_desc">تُستخلص وتُصنع بكل أصالة وشغف من قلب العاصمة العراقية</div>
       </div>
+
       <div class="feat-card reveal reveal-d3">
-        <div class="feat-icon"><svg width="26" height="26" fill="none" stroke="currentColor" stroke-width="1.3" viewBox="0 0 24 24"><rect x="1" y="3" width="15" height="13"/><path d="M16 8h4l3 3v5h-7V8z"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg></div>
+        <div class="feat-icon">
+          <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.3" viewBox="0 0 24 24">
+            <rect x="1" y="3" width="15" height="13"/>
+            <path d="M16 8h4l3 3v5h-7V8z"/>
+            <circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/>
+          </svg>
+        </div>
         <div class="feat-title" data-i18n="feat3_title">تغليف فاخر</div>
         <div class="feat-desc" data-i18n="feat3_desc">تغليف جاهز للإهداء يعكس الطبيعة الاستثنائية لعطورنا الراقية</div>
       </div>
+
       <div class="feat-card reveal reveal-d4">
-        <div class="feat-icon"><svg width="26" height="26" fill="none" stroke="currentColor" stroke-width="1.3" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 012.12 4.18 2 2 0 014.11 2h3a2 2 0 012 1.72c.44 2.78 1.27 5.24 2.44 7.43a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c2.19 1.17 4.65 2 7.43 2.44A2 2 0 0122 16.92z"/></svg></div>
+        <div class="feat-icon">
+          <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.3" viewBox="0 0 24 24">
+            <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 012.12 4.18 2 2 0 014.11 2h3a2 2 0 012 1.72c.44 2.78 1.27 5.24 2.44 7.43a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c2.19 1.17 4.65 2 7.43 2.44A2 2 0 0122 16.92z"/>
+          </svg>
+        </div>
         <div class="feat-title" data-i18n="feat4_title">دعم مخصص</div>
         <div class="feat-desc" data-i18n="feat4_desc">استشارات عطرية شخصية متاحة لأعضاء وعملاء كبار الشخصيات</div>
       </div>
+
     </div>
   </div>
 </section>
 
 
 <!-- ════════════════════ TESTIMONIALS ════════════════════ -->
-<section class="section testimonials-section" id="testimonials">
+<section class="section testimonials-section dark-section" id="testimonials" aria-labelledby="test-title">
   <div class="section-inner">
     <div class="section-header reveal">
       <p class="section-overline" data-i18n="test_over">✦ قصص عملائنا ✦</p>
-      <h2 class="section-title" style="color:#fff;" data-i18n="test_title">ماذا يقول <em>مجتمعنا</em></h2>
+      <h2 class="section-title" id="test-title" style="color:var(--text-white);" data-i18n="test_title">
+        ماذا يقول <em>مجتمعنا</em>
+      </h2>
       <div class="section-divider"></div>
     </div>
     <div class="test-grid">
+
       <div class="test-card reveal reveal-d1">
         <div class="t-stars">★★★★★</div>
         <p class="t-text" data-i18n="test1_text">"عطر عود ملكي يختلف عن أي شيء جربته من قبل. يدوم طوال اليوم وفوحانه ساحر. أصبحت روز بغداد المفضلة لدي."</p>
@@ -260,6 +365,7 @@
           </div>
         </div>
       </div>
+
       <div class="test-card reveal reveal-d2">
         <div class="t-stars">★★★★★</div>
         <p class="t-text" data-i18n="test2_text">"طلبت مجموعة حديقة الورد كهدية وعائلتي انبهرت تماماً. التغليف بحد ذاته لوحة فنية. تستحق كل دينار."</p>
@@ -271,6 +377,7 @@
           </div>
         </div>
       </div>
+
       <div class="test-card reveal reveal-d3">
         <div class="t-stars">★★★★★</div>
         <p class="t-text" data-i18n="test3_text">"البخور المقدس أكثر بخور أصيل وجدته منذ سنوات. رائحته تملأ المنزل وتبقى ساعات طويلة. فخامة حقيقية."</p>
@@ -282,21 +389,28 @@
           </div>
         </div>
       </div>
+
     </div>
   </div>
 </section>
 
 
 <!-- ════════════════════ NEWSLETTER ════════════════════ -->
-<section class="section newsletter" id="contact">
+<section class="section newsletter dark-section" id="contact" aria-labelledby="nl-title">
   <div class="section-inner">
     <div class="nl-card reveal">
-      <p class="section-overline" style="margin-bottom:24px;" data-i18n="nl_over">✦ انضم لدائرتنا الخاصة ✦</p>
-      <h2 class="section-title" style="color:#fff;font-size:clamp(1.8rem,4vw,2.8rem);" data-i18n="nl_title">كن أول من يكتشف<br/>إصداراتنا الجديدة</h2>
-      <p class="section-subtitle" style="color:rgba(255,255,255,0.4);margin-bottom:40px;" data-i18n="nl_sub">اشترك لتلقي وصول مبكر حصري وعروض كبار الشخصيات من قلب بغداد.</p>
-      <form class="nl-form" onsubmit="event.preventDefault();showToast(Lang.t.nl_success);this.reset();">
-        <input type="email" class="nl-input" data-i18n-placeholder="nl_placeholder" placeholder="أدخل بريدك الإلكتروني" required />
-        <button type="submit" class="nl-btn" data-i18n="nl_btn">اشترك الآن</button>
+      <p class="section-overline" data-i18n="nl_over">✦ انضم لدائرتنا الخاصة ✦</p>
+      <h2 class="section-title" id="nl-title" style="color:var(--text-white);font-size:clamp(1.8rem,4vw,2.8rem);margin-bottom:16px;"
+          data-i18n="nl_title">كن أول من يكتشف إصداراتنا الجديدة</h2>
+      <p class="section-subtitle" style="margin-bottom:36px;" data-i18n="nl_sub">
+        اشترك لتلقي وصول مبكر حصري وعروض كبار الشخصيات من قلب بغداد.
+      </p>
+      <form class="nl-form" id="nl-form"
+            onsubmit="event.preventDefault();showToast(Lang.t.nl_success);this.reset();">
+        <input type="email" class="nl-input" id="nl-email"
+               data-i18n-placeholder="nl_placeholder"
+               placeholder="أدخل بريدك الإلكتروني" required autocomplete="email" />
+        <button type="submit" class="nl-btn" id="nl-submit" data-i18n="nl_btn">اشترك الآن</button>
       </form>
     </div>
   </div>
@@ -304,21 +418,46 @@
 
 
 <!-- ════════════════════ FOOTER ════════════════════ -->
-<footer class="site-footer">
+<footer class="site-footer" id="footer">
   <div class="footer-inner">
     <div class="footer-grid">
+
+      <!-- Brand -->
       <div>
+        <!-- Footer logo — white circle + multiply -->
         <div class="footer-logo-wrap">
           <img src="assets/images/logo_transparent.png" alt="Rose Baghdad" class="footer-logo" />
         </div>
-        <p class="footer-desc" data-i18n="footer_desc">روز بغداد — ملاذ العطور الشرقية، حيث تلتقي التقاليد العريقة بالفخامة العصرية. تأسست بكل حب في بغداد، ٢٠٢٢.</p>
+        <p class="footer-desc" data-i18n="footer_desc">
+          روز بغداد — ملاذ العطور الشرقية، حيث تلتقي التقاليد العريقة بالفخامة العصرية. تأسست بكل حب في بغداد، ٢٠٢٢.
+        </p>
         <div class="footer-socials">
-          <a href="#" class="footer-social" aria-label="Instagram"><svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg></a>
-          <a href="#" class="footer-social" aria-label="Facebook"><svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg></a>
-          <a href="#" class="footer-social" aria-label="TikTok"><svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M9 12a4 4 0 104 4V4a5 5 0 005 5"/></svg></a>
-          <a href="#" class="footer-social" aria-label="WhatsApp"><svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.38 8.38 0 013.8-.9h.5a8.48 8.48 0 018 8v.5z"/></svg></a>
+          <a href="#" class="footer-social" aria-label="Instagram">
+            <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+              <rect x="2" y="2" width="20" height="20" rx="5"/>
+              <path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z"/>
+              <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/>
+            </svg>
+          </a>
+          <a href="#" class="footer-social" aria-label="Facebook">
+            <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+              <path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/>
+            </svg>
+          </a>
+          <a href="#" class="footer-social" aria-label="TikTok">
+            <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+              <path d="M9 12a4 4 0 104 4V4a5 5 0 005 5"/>
+            </svg>
+          </a>
+          <a href="#" class="footer-social" aria-label="WhatsApp">
+            <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+              <path d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.38 8.38 0 013.8-.9h.5a8.48 8.48 0 018 8v.5z"/>
+            </svg>
+          </a>
         </div>
       </div>
+
+      <!-- Quick Links -->
       <div>
         <div class="footer-heading" data-i18n="footer_quick">روابط سريعة</div>
         <ul class="footer-links">
@@ -328,6 +467,8 @@
           <li><a href="#contact" data-i18n="nav_contact">تواصل معنا</a></li>
         </ul>
       </div>
+
+      <!-- Categories -->
       <div>
         <div class="footer-heading" data-i18n="footer_categories">الفئات</div>
         <ul class="footer-links">
@@ -336,6 +477,8 @@
           <li><a href="shop.html" data-i18n="footer_gift_sets">مجموعات الهدايا</a></li>
         </ul>
       </div>
+
+      <!-- Contact -->
       <div>
         <div class="footer-heading" data-i18n="footer_contact_title">تواصل معنا</div>
         <ul class="footer-links">
@@ -344,10 +487,12 @@
           <li><a href="mailto:info@rosebaghdad.iq" dir="ltr">info@rosebaghdad.iq</a></li>
         </ul>
       </div>
+
     </div>
+
     <div class="footer-bottom">
       <span class="footer-copy" data-i18n="footer_copyright">© 2026 روز بغداد. جميع الحقوق محفوظة.</span>
-      <div style="display:flex;gap:20px;">
+      <div style="display:flex;gap:18px;">
         <a href="#" class="footer-copy" data-i18n="footer_privacy">سياسة الخصوصية</a>
         <a href="#" class="footer-copy" data-i18n="footer_terms">شروط الخدمة</a>
       </div>
@@ -356,47 +501,69 @@
 </footer>
 
 
+<!-- ════════════════════ SCRIPTS ════════════════════ -->
 <script src="js/app.js"></script>
 <script>
-// ─── Hero Particles
-(function(){
-  const c = document.getElementById('hero-particles');
-  if (!c) return;
-  for(let i = 0; i < 30; i++){
+// ─── Hero particles (ultra-lightweight, no jitter) ───
+(function spawnParticles() {
+  const container = document.getElementById('hero-particles');
+  if (!container) return;
+  for (let i = 0; i < 28; i++) {
     const p = document.createElement('div');
     p.className = 'particle';
-    const s = Math.random() * 2.5 + 0.6;
-    p.style.cssText = `left:${Math.random()*100}%;width:${s}px;height:${s}px;animation-duration:${Math.random()*18+12}s;animation-delay:${Math.random()*14}s;`;
-    c.appendChild(p);
+    const size = Math.random() * 2.2 + 0.7;
+    p.style.cssText = [
+      `left:${Math.random() * 100}%`,
+      `width:${size}px`,
+      `height:${size}px`,
+      `animation-duration:${Math.random() * 20 + 14}s`,
+      `animation-delay:${Math.random() * 16}s`
+    ].join(';');
+    container.appendChild(p);
   }
 })();
 
-// ─── Hero Ken Burns
-setTimeout(() => document.getElementById('hero-bg')?.classList.add('loaded'), 300);
+// ─── Hero BG soft fade-in (not fixed, just opacity) ───
+setTimeout(() => {
+  const bg = document.getElementById('hero-bg');
+  if (bg) bg.classList.add('loaded');
+}, 200);
 
-// ─── Homepage product grid with DOM filtering
-let homeFilter = 'all';
-function renderHome(filter) {
-  homeFilter = filter;
+// ─── Product grid with filter logic ───
+let activeFilter = 'all';
+
+function renderHomeGrid(filter) {
+  activeFilter = filter;
   const grid = document.getElementById('home-grid');
   if (!grid) return;
-  const items = (filter === 'all' ? PRODUCTS : PRODUCTS.filter(p => p.category === filter)).slice(0, 4);
-  grid.innerHTML = items.map((p, i) => {
+  const subset = (filter === 'all' ? PRODUCTS : PRODUCTS.filter(p => p.category === filter)).slice(0, 4);
+  grid.innerHTML = subset.map((p, i) => {
     const card = buildCard(p);
-    return card.replace('class="product-card"', `class="product-card" style="animation-delay:${i * 0.1}s"`);
+    // inject stagger animation delay
+    return card.replace('class="product-card"', `class="product-card" style="animation:cardFadeUp 0.55s var(--ease-luxury) ${i * 0.09}s both"`);
   }).join('');
 }
 
+// Inject keyframes once
+const style = document.createElement('style');
+style.textContent = '@keyframes cardFadeUp{from{opacity:0;transform:translateY(28px)}to{opacity:1;transform:none}}';
+document.head.appendChild(style);
+
+// Filter pill click handler
 document.getElementById('home-filter')?.addEventListener('click', e => {
   const pill = e.target.closest('.filter-pill');
   if (!pill) return;
   document.querySelectorAll('#home-filter .filter-pill').forEach(p => p.classList.remove('active'));
   pill.classList.add('active');
-  renderHome(pill.dataset.filter);
+  renderHomeGrid(pill.dataset.filter);
 });
 
-document.addEventListener('lang:change', () => renderHome(homeFilter));
-renderHome('all');
+// Re-render on language change
+document.addEventListener('lang:change', () => renderHomeGrid(activeFilter));
+
+// Initial render
+renderHomeGrid('all');
 </script>
+
 </body>
 </html>
